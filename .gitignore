@@ -1,4 +1,6 @@
 __pycache__/
-processed/
-raw/
+data/__pycache__/
+data/processed/
+data/raw/
 logs/
+src/__pycache__/
