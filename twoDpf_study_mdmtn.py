@@ -6,16 +6,14 @@ import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 from src.utils.Preference_vectors import get_pref_vects
-from Train_and_Test import load_Cifar10Mnist_data
-# from Train_and_Test import load_MultiMnist_data # for MultiMnist dataset
+from train_and_test_model_MM import load_MultiMnist_data
 from src.utils.PFstudy_utils import Train_Test_PFstudy
 
 from config import get_params
 
-main_dir = "logs/MDMTN_CM_logs/Pareto_Front_Study"
-mod_logdir = "MDMTN_model_CM_PF_onek"
+main_dir = "logs/MDMTN_MM_logs/Pareto_Front_Study"
+mod_logdir = "MDMTN_model_MM_PF_onek"
 archi_name = "MDMTN"
-data_name = "Cifar10Mnist"
 Sparsity_study = False
 num_model = 0
 
@@ -35,17 +33,17 @@ if __name__ == "__main__":
         if use_cuda == False:
             print("WARNING: CPU will be used for training.")
 
-        inst_model, Cifar10mnist_params, GrOWL_parameters = get_params(ws[0], archi_name, data_name, main_dir, mod_logdir, num_model, Sparsity_study)
+        inst_model, Cifar10mnist_params, GrOWL_parameters = get_params(ws[0], archi_name, main_dir, mod_logdir, num_model, Sparsity_study)
 
         Cifar10mnist_params["device"] = device
 
-        train_loader, val_loader, test_loader = load_Cifar10Mnist_data()
+        train_loader, val_loader, test_loader = load_MultiMnist_data()
 
-        if not os.path.exists("%s/%s"%("Images", data_name)):
-            os.makedirs("%s/%s"%("Images", data_name))
+        if not os.path.exists("%s/%s"%("Images")):
+            os.makedirs("%s/%s"%("Images"))
 
         Train_Test_PFstudy(ws, train_loader, val_loader, test_loader, Cifar10mnist_params,
-                        SPARSE_MODEL_FILE, data_name, archi_name, inst_model)
+                        SPARSE_MODEL_FILE, archi_name, inst_model)
 
         
         #####################################################################################

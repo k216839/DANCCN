@@ -4,3 +4,5 @@ data/processed/
 data/raw/
 logs/
 src/__pycache__/
+
+*.pyc
