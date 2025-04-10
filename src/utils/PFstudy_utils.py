@@ -109,7 +109,7 @@ def Train_Test_PFstudy(ws, train_loader, val_loader, test_loader, params,
         # # Create an instance of the model
         # model = inst_model
         # model.load_state_dict(torch.load(SPARSE_MODEL_FILE))
-        model = torch.load(SPARSE_MODEL_FILE)
+        model = torch.load(SPARSE_MODEL_FILE, weights_only=False)
         params["info_sparse_model"] = get_sparse_model_info(model)
         
         # Train model

@@ -22,7 +22,7 @@ ws = get_pref_vects(k0)
 
 if __name__ == "__main__":
 
-    SPARSE_MODEL_FILE = "src/Sparse_models/Sparse_MDMTN_model_II.pth"
+    SPARSE_MODEL_FILE = "src/Sparse_models/model000.pth"
 
     if not os.path.exists(SPARSE_MODEL_FILE):
         raise ValueError("No sparse model found ! First, find the preference vector k that yields the best model performance and save the obtained model in the directory `src/Sparse_models/")
@@ -33,16 +33,16 @@ if __name__ == "__main__":
         if use_cuda == False:
             print("WARNING: CPU will be used for training.")
 
-        inst_model, Cifar10mnist_params, GrOWL_parameters = get_params(ws[0], archi_name, main_dir, mod_logdir, num_model, Sparsity_study)
+        inst_model, Multimnist_params, GrOWL_parameters = get_params(ws[0], archi_name, main_dir, mod_logdir, num_model, Sparsity_study)
 
-        Cifar10mnist_params["device"] = device
+        Multimnist_params["device"] = device
 
         train_loader, val_loader, test_loader = load_MultiMnist_data()
 
-        if not os.path.exists("%s/%s"%("Images")):
-            os.makedirs("%s/%s"%("Images"))
+        if not os.path.exists("Images"):
+            os.makedirs("Images")
 
-        Train_Test_PFstudy(ws, train_loader, val_loader, test_loader, Cifar10mnist_params,
+        Train_Test_PFstudy(ws, train_loader, val_loader, test_loader, Multimnist_params,
                         SPARSE_MODEL_FILE, archi_name, inst_model)
 
         
